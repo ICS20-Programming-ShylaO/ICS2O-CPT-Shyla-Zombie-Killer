@@ -11,7 +11,7 @@
 // using the built-in functions that the Phaser already has
 class SplashScene extends Phaser.Scene {
   constructor () {
-    super({key: splashScene })
+    super({key: SplashScene })
   }
 
   init (data) {

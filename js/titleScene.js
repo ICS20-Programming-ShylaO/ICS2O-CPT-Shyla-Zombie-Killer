@@ -11,7 +11,7 @@
 // using the built-in functions that the Phaser already has
 class TitleScene extends Phaser.Scene {
   constructor () {
-    super({key: titleScene })
+    super({key: TitleScene })
   }
 
   init (data) {
