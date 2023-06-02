@@ -12,27 +12,33 @@
 class SplashScene extends Phaser.Scene {
   constructor () {
     super({key: SplashScene })
+
+    this.splashSceneBackgroundImage = null
   }
 
   init (data) {
-    // setting background color to black
-    this.cameras.main.setBackgroundColor('#ffffff')
+    // setting background color to white
+    this.cameras.main.setBackgroundColor("#ffffff")
   }
 
   preload () {
-    console.log('SplashScene')
-    this.load.image('splashSceneBackground', './assets/immaculata_logo_crop.png')
+    console.log("SplashScene")
+    this.load.image("splashSceneBackground", "./assets/immaculata_logo_crop.png")
   }
 
   create (data) {
-    this.splashSceneBackgroundImage = this.add.sprite(0, 0, 'splashSceneBackground')
-    this.splashSceneBackgroundImage.x = 1920 / 2
-    this.splashSceneBackgroundImage.y = 1080 / 2
+    this.splashSceneBackgroundImage = this.add.sprite(
+      0,
+      0,
+      "splashSceneBackground"
+    )
+      this.splashSceneBackgroundImage.x = 1920 / 2
+      this.splashSceneBackgroundImage.y = 1080 / 2
   }
   // to change to the title scene
   update (time, delta) {
     if (time > 5000) {
-      this.scene.switch('titleScene')    
+      this.scene.switch("titleScene")    
     }
   }
 }
