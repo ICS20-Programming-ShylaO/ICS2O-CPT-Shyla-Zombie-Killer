@@ -21,13 +21,19 @@ class SplashScene extends Phaser.Scene {
 
   preload () {
     console.log('SplashScene')
+    this.load.image('splashSceneBackground', './assets/immaculata_logo_crop.png')
   }
 
   create (data) {
+    this.splashSceneBackgroundImage = this.add.sprite(0, 0, 'splashSceneBackground')
+    this.splashSceneBackgroundImage.x = 1920 / 2
+    this.splashSceneBackgroundImage.y = 1080 / 2
   }
   // to change to the title scene
   update (time, delta) {
-    this.scene.switch('titleScene')
+    if (time > 5000) {
+      this.scene.switch('titleScene')    
+    }
   }
 }
 
