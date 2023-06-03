@@ -45,8 +45,7 @@ class TitleScene extends Phaser.Scene {
   * Once per game step while the scene is running using given variables, time and delta.
   */
   update(time, delta) {
-    //switching to the title scene
-    this.scene.switch("titleScene")
+    //pass
   }
 }
 
