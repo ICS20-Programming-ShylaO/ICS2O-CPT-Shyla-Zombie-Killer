@@ -55,7 +55,10 @@ class TitleScene extends Phaser.Scene {
   * Once per game step while the scene is running using given variables, time and delta.
   */
   update(time, delta) {
-    //pass
+    //switching to the menu scene
+    if (time > 6000) {
+      this.scene.switch("menuScene")
+    }
   }
 }
 

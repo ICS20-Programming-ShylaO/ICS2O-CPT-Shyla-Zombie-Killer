@@ -17,6 +17,10 @@ class MenuScene extends Phaser.Scene {
   */
   constructor() {
     super({key: "menuScene" })
+
+    this.menuSceneBackgroundImage = null
+    this.startButton = null
+    this.instructionsButton = null
   }
 
   /** 
@@ -32,12 +36,21 @@ class MenuScene extends Phaser.Scene {
   */
   preload() {
     console.log("Menu Scene")
+    this.load.image("menuSceneBackground", "./assets/titleScreenImage.jpg")
+    this.load.image("startButton", "./assets/start.png")
   }
 
   /** 
   * Used to create game objects
   */
   create(data) {
+    this.titleSceneBackgroundImage = this.add.sprite(0, 0, "menuSceneBackground").setScale(6.75)
+    this.titleSceneBackgroundImage.x = 1920 / 2
+    this.titleSceneBackgroundImage.y = 1080 / 2
+
+    this.startButton = this.add.sprite(1920 / 2, (1080 / 2) + 100, "startButton")
+    this.startButton.setInteractive({ useHandCursor: true })
+    this.startButton.on("pointerdown", () => this.clickButton())
     // pass
   }
 
@@ -46,6 +59,10 @@ class MenuScene extends Phaser.Scene {
   */
   update(time, delta) {
     //pass
+  }
+
+  clickButton() {
+    this.scene.start("gameScene")
   }
 }
 
