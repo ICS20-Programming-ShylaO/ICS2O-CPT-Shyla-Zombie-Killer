@@ -17,6 +17,10 @@ class TitleScene extends Phaser.Scene {
   */
   constructor() {
     super({key: "titleScene" })
+
+    this.titleSceneBackgroundImage = null
+    this.titleSceneText = null
+    this.titleSceneTextStyle = { font: "180px palatino, Sans-Serif", fill: "#fde4b9", align: "center" }
   }
 
   /** 
@@ -32,12 +36,18 @@ class TitleScene extends Phaser.Scene {
   */
   preload() {
     console.log("Title Scene")
+    this.load.image("titleSceneBackground", "./assets/titleScreenImage.jpg")
   }
 
   /** 
   * Used to create game objects
   */
   create(data) {
+    this.titleSceneBackgroundImage = this.add.sprite(0, 0, "titleSceneBackground").setScale(6.75)
+    this.titleSceneBackgroundImage.x = 1920 / 2
+    this.titleSceneBackgroundImage.y = 1080 / 2
+
+    this.titleSceneText = this.add.text(1920 / 2, (1080 / 2) + 350, "Shyla the Zombie Killer", this.titleSceneTextStyle).setOrigin(0.5)
     // pass
   }
 
