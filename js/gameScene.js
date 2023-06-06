@@ -81,10 +81,16 @@ class GameScene extends Phaser.Scene {
     }
 
     if (keySpaceObj.isDown === true) {
-      const aNewBullet = this.physics.add.sprite(this.shyla.x, this.shyla.y, "bullet").setScale(0.35)
-      this.bulletGroup.add(aNewBullet)
+      if (this.fireBullet === false) {
+        // fire bullet
+        this.fireBullet = true
+        const aNewBullet = this.physics.add.sprite(this.shyla.x, this.shyla.y, "bullet").setScale(0.35)
+      }
     }
-      
+
+    if (keySpaceObj.isUp === true) {
+      this.fireBullet = false
+    }
   }
 }
 
