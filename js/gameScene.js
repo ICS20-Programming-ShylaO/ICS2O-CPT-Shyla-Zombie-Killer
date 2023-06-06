@@ -17,6 +17,11 @@ class GameScene extends Phaser.Scene {
   */
   constructor() {
     super({key: "gameScene" })
+
+    this.background = null
+    this.shyla = null
+    this.fireBullet = false
+    
   }
 
   /** 
@@ -32,12 +37,22 @@ class GameScene extends Phaser.Scene {
   */
   preload() {
     console.log("Game Scene")
+
+    this.load.image("gameBackground", "./assets/gameSceneBackground.png")
+    this.load.image("shyla", "./assets/shylaWithGun.png")
+    this.load.image("bullet", "./assets/bullet.png")
   }
 
   /** 
   * Used to create game objects
   */
   create(data) {
+    this.background = this.add.image(0, 0, "gameBackground").setScale(2.0)
+    this.background.setOrigin(0, 0)
+
+    this.shyla = this.physics.add.sprite(1920 / 2, 1080 - 100, "shyla").setScale(5.0)
+
+    this.bulletGroup = this.physics.add.group()
     // pass
   }
 
@@ -46,6 +61,30 @@ class GameScene extends Phaser.Scene {
   */
   update(time, delta) {
     //pass
+
+    const keyLeftObj = this.input.keyboard.addKey("LEFT")
+    const keyRightObj = this.input.keyboard.addKey("RIGHT")
+    const keySpaceObj = this.input.keyboard.addKey("SPACE")
+
+    if (keyLeftObj.isDown === true) {
+      this.shyla.x -= 15
+      if (this.shyla.x < 0) {
+        this.shyla.x = 0
+      }
+    }
+
+    if (keyRightObj.isDown === true) {
+      this.shyla.x += 15
+      if (this.shyla.x > 1920) {
+        this.shyla.x = 1920
+      }
+    }
+
+    if (keySpaceObj.isDown === true) {
+      const aNewBullet = this.physics.add.sprite(this.shyla.x, this.shyla.y, "bullet").setScale(0.35)
+      this.bulletGroup.add(aNewBullet)
+    }
+      
   }
 }
 

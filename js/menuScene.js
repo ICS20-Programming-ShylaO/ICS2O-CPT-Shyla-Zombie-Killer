@@ -52,7 +52,7 @@ class MenuScene extends Phaser.Scene {
     this.menuSceneBackgroundImage.x = 1920 / 2
     this.menuSceneBackgroundImage.y = 1080 / 2
 
-    this.menuSceneText = this.add.text(1920 / 2, (1080 / 2) + 350, "Shyla the Zombie Killer", this.menuSceneTextStyle).setOrigin(0.5)
+    this.menuSceneText = this.add.text(1920 / 2, (1080 / 2) + 350, "Menu", this.menuSceneTextStyle).setOrigin(0.5)
 
     this.startButton = this.add.sprite(1920 / 2, (1080 / 2) + 75, "startButton")
     this.startButton.setInteractive({ useHandCursor: true })
