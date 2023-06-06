@@ -20,7 +20,10 @@ class MenuScene extends Phaser.Scene {
 
     this.menuSceneBackgroundImage = null
     this.startButton = null
-    this.instructionsButton = null
+    this.instructionButton = null
+
+    this.menuSceneText = null
+    this.menuSceneTextStyle = { font: "180px palatino, Sans-Serif", fill: "#fde4b9", align: "center" }
   }
 
   /** 
@@ -36,21 +39,28 @@ class MenuScene extends Phaser.Scene {
   */
   preload() {
     console.log("Menu Scene")
-    this.load.image("menuSceneBackground", "./assets/titleScreenImage.jpg")
+    this.load.image("menuSceneBackground", "./assets/menuSceneImage.png")
     this.load.image("startButton", "./assets/start.png")
+    this.load.image("instructionButton", "./assets/instruction.png")
   }
 
   /** 
   * Used to create game objects
   */
   create(data) {
-    this.titleSceneBackgroundImage = this.add.sprite(0, 0, "menuSceneBackground").setScale(6.75)
-    this.titleSceneBackgroundImage.x = 1920 / 2
-    this.titleSceneBackgroundImage.y = 1080 / 2
+    this.menuSceneBackgroundImage = this.add.sprite(0, 0, "menuSceneBackground").setScale(2.75)
+    this.menuSceneBackgroundImage.x = 1920 / 2
+    this.menuSceneBackgroundImage.y = 1080 / 2
 
-    this.startButton = this.add.sprite(1920 / 2, (1080 / 2) + 100, "startButton")
+    this.menuSceneText = this.add.text(1920 / 2, (1080 / 2) + 350, "Shyla the Zombie Killer", this.menuSceneTextStyle).setOrigin(0.5)
+
+    this.startButton = this.add.sprite(1920 / 2, (1080 / 2) + 75, "startButton")
     this.startButton.setInteractive({ useHandCursor: true })
-    this.startButton.on("pointerdown", () => this.clickButton())
+    this.startButton.on("pointerdown", () => this.clickStart())
+
+    this.instructionButton = this.add.sprite(1920 / 2, (1080 / 2) + 200, "instructionButton")
+    this.instructionButton.setInteractive({ useHandCursor: true })
+    this.instructionButton.on("pointerdown", () => this.clickInstruct())
     // pass
   }
 
@@ -61,8 +71,12 @@ class MenuScene extends Phaser.Scene {
     //pass
   }
 
-  clickButton() {
+  clickStart() {
     this.scene.start("gameScene")
+  }
+
+  clickInstruct() {
+    this.scene.start("instructionScene")
   }
 }
 
