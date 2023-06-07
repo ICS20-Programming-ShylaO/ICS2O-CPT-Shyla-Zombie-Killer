@@ -46,6 +46,8 @@ class GameScene extends Phaser.Scene {
     this.load.image("shyla", "./assets/shylaWithGun.png")
     // load in bullet as the weapon
     this.load.image("bullet", "./assets/bullet.png")
+    // sound
+    this.load.audio("gunshot", "./assets/gunshot.mp3")
   }
 
   /** 
@@ -93,12 +95,20 @@ class GameScene extends Phaser.Scene {
         // fire bullet
         this.fireBullet = true
         const aNewBullet = this.physics.add.sprite(this.shyla.x, this.shyla.y, "bullet").setScale(0.35)
+        this.bulletGroup.add(aNewBullet)
+
+
+        this.sound.play("gunshot")
       }
     }
     // if statement as a check to prevent spamming of the space key
     if (keySpaceObj.isUp === true) {
       this.fireBullet = false
     }
+
+    this.bulletGroup.children.each (function (item) {
+      item.y = item.y -15 
+    })
   }
 }
 
