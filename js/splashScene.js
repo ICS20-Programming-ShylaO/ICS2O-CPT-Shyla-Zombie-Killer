@@ -17,7 +17,7 @@ class SplashScene extends Phaser.Scene {
   */
   constructor() {
     super({key: "splashScene" })
-
+    // constructing background image
     this.splashSceneBackgroundImage = null
   }
 
@@ -26,6 +26,7 @@ class SplashScene extends Phaser.Scene {
   * before preload() and create()
   */
   init(data) {
+    // setting background color of scene
     this.cameras.main.setBackgroundColor("0d0106")
   }
 
@@ -34,6 +35,7 @@ class SplashScene extends Phaser.Scene {
   */
   preload() {
     console.log("Splash Scene")
+    // loading in splash scene background image
     this.load.image("splashSceneBackground", "./assets/splashSceneImage.png")
   }
 
@@ -41,6 +43,7 @@ class SplashScene extends Phaser.Scene {
   * Used to create game objects
   */
   create(data) {
+    // creating background image with coordinates
     this.splashSceneBackgroundImage = this.add.sprite(0, 0, "splashSceneBackground")
     this.splashSceneBackgroundImage.x = 1920 / 2
     this.splashSceneBackgroundImage.y = 1080 / 2
@@ -51,7 +54,7 @@ class SplashScene extends Phaser.Scene {
   * Once per game step while the scene is running using given variables, time and delta.
   */
   update(time, delta) {
-    //switching to the title scene
+    //switching to the title scene after 4 seconds
     if (time > 4000) {
       this.scene.switch("titleScene")
     }

@@ -17,8 +17,9 @@ class TitleScene extends Phaser.Scene {
   */
   constructor() {
     super({key: "titleScene" })
-
+    // constructing background image
     this.titleSceneBackgroundImage = null
+    // constructing title text and style
     this.titleSceneText = null
     this.titleSceneTextStyle = { font: "180px palatino, Sans-Serif", fill: "#fde4b9", align: "center" }
   }
@@ -28,6 +29,7 @@ class TitleScene extends Phaser.Scene {
   * before preload() and create()
   */
   init(data) {
+    // setting background color
     this.cameras.main.setBackgroundColor("ffffff")
   }
 
@@ -36,6 +38,7 @@ class TitleScene extends Phaser.Scene {
   */
   preload() {
     console.log("Title Scene")
+    // loading in background image
     this.load.image("titleSceneBackground", "./assets/menuSceneImage.png")
   }
 
@@ -43,10 +46,11 @@ class TitleScene extends Phaser.Scene {
   * Used to create game objects
   */
   create(data) {
+    // creating background image and placing it into the scene
     this.titleSceneBackgroundImage = this.add.sprite(0, 0, "titleSceneBackground").setScale(2.75)
     this.titleSceneBackgroundImage.x = 1920 / 2
     this.titleSceneBackgroundImage.y = 1080 / 2
-
+    // creating and placing the title text into the scene
     this.titleSceneText = this.add.text(1920 / 2, (1080 / 2) + 350, "Shyla the Zombie Killer", this.titleSceneTextStyle).setOrigin(0.5)
     // pass
   }
@@ -55,7 +59,7 @@ class TitleScene extends Phaser.Scene {
   * Once per game step while the scene is running using given variables, time and delta.
   */
   update(time, delta) {
-    //switching to the menu scene
+    //switching to the menu scene after 6000
     if (time > 6000) {
       this.scene.switch("menuScene")
     }
