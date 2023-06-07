@@ -15,6 +15,14 @@ class GameScene extends Phaser.Scene {
   /** 
   * This method is the constructor.
   */
+  // create a zombie
+  createZombie () {
+    // x coordinate to be random from 1 to 1920
+    const zombieXLocation = Math.floor(Math.random() * 1920) + 1
+    const aZombie = this.physics.add.sprite(zombieXLocation, 100, "zombie").setScale(0.75)
+    aZombie.body.velocity.y = 200
+    this.zombieGroup.add(aZombie)
+  }
   constructor() {
     super({key: "gameScene" })
     // constructing background
@@ -40,14 +48,21 @@ class GameScene extends Phaser.Scene {
   */
   preload() {
     console.log("Game Scene")
+    // IMAGES
     // load in background image for game
     this.load.image("gameBackground", "./assets/gameSceneBackground.png")
     // load in player as shyla
     this.load.image("shyla", "./assets/shylaWithGun.png")
     // load in bullet as the weapon
     this.load.image("bullet", "./assets/bullet.png")
-    // sound
+    // load in zombie
+    this.load.image("zombie", "./assets/zombie.png")
+    
+    // AUDIO
+    // load in gun sound
     this.load.audio("gunshot", "./assets/gunshot.mp3")
+
+    
   }
 
   /** 
@@ -61,7 +76,9 @@ class GameScene extends Phaser.Scene {
     this.shyla = this.physics.add.sprite(1920 / 2, 1080 - 100, "shyla").setScale(5.0)
     // creating bullet group for space key function
     this.bulletGroup = this.physics.add.group()
-    // pass
+    // creating a group for zombies
+    this.zombieGroup = this.physics.add.group()
+    this.createZombie()
   }
 
   /** 
