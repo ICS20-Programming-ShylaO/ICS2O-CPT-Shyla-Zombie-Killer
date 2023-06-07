@@ -23,7 +23,7 @@ class GameScene extends Phaser.Scene {
     let zombieXVelocity = Math.floor(Math.random() * 50) + 1
     // this will add minus sign in 50% of cases
     zombieXVelocity *= Math.round(Math.random()) ? 1 : -1
-    const aZombie = this.physics.add.sprite(zombieXLocation, -100, "zombie").setScale(0.75)
+    const aZombie = this.physics.add.sprite(zombieXLocation, -100, "zombie")
     aZombie.body.velocity.y = 200
     aZombie.body.velocity.x = zombieXVelocity
     this.zombieGroup.add(aZombie)
@@ -130,7 +130,10 @@ class GameScene extends Phaser.Scene {
     }
 
     this.bulletGroup.children.each (function (item) {
-      item.y = item.y -15 
+      item.y = item.y -15
+      if (item.y < 0) {
+        item.destroy()
+      }
     })
   }
 }
