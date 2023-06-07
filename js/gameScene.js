@@ -19,10 +19,16 @@ class GameScene extends Phaser.Scene {
   createZombie () {
     // x coordinate to be random from 1 to 1920
     const zombieXLocation = Math.floor(Math.random() * 1920) + 1
-    const aZombie = this.physics.add.sprite(zombieXLocation, 100, "zombie").setScale(0.75)
+    // x velocity set to random from 1 to 50
+    let zombieXVelocity = Math.floor(Math.random() * 50) + 1
+    // this will add minus sign in 50% of cases
+    zombieXVelocity *= Math.round(Math.random()) ? 1 : -1
+    const aZombie = this.physics.add.sprite(zombieXLocation, -100, "zombie").setScale(0.75)
     aZombie.body.velocity.y = 200
+    aZombie.body.velocity.x = zombieXVelocity
     this.zombieGroup.add(aZombie)
   }
+  
   constructor() {
     super({key: "gameScene" })
     // constructing background
