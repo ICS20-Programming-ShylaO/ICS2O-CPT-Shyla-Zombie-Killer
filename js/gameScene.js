@@ -42,6 +42,14 @@ class GameScene extends Phaser.Scene {
     // constructing score text and its style
     this.scoreText = null
     this.scoreTextStyle = { font: "65px Arial", fill: "#ffffff", align: "center" }
+    // constructing life as 3
+    this.life = 3
+    // constructing life text and its style
+    this.lifeText = null
+    this.lifeTextStyle = { font: "65px Arial", fill: "#ffffff", align: "center" }
+    // constructing game over text and its style
+    this.gameOverText = null
+    this.gameOverText = { font: "65px Arial", fill: "#ff0000", align: "center" }
     
   }
 
@@ -72,9 +80,10 @@ class GameScene extends Phaser.Scene {
     // AUDIO
     // load in gun sound
     this.load.audio("gunshot", "./assets/gunshot.mp3")
+    // load in zombie hurt sound
     this.load.audio("zombieHurt", "./assets/zombieHurt.mp3")
-
-    
+    // load in zombie eat sound
+    this.load.audio("zombieEat", "./assets/zombieEat.mp3")
   }
 
   /** 
@@ -86,6 +95,8 @@ class GameScene extends Phaser.Scene {
     this.background.setOrigin(0, 0)
     // creating text for the score
     this.scoreText = this.add.text(10, 10, "Score: " + this.score.toString(), this.scoreTextStyle)
+    // text for the # of lives
+    this.lifeText = this.add.text(1685, 10, "Lives: " + this.life.toString(), this.lifeTextStyle)
     // creating shyla, turning into a sprite
     this.shyla = this.physics.add.sprite(1920 / 2, 1080 - 100, "shyla").setScale(5.0)
     // creating bullet group for space key function
@@ -104,6 +115,21 @@ class GameScene extends Phaser.Scene {
       this.createZombie()
       this.createZombie()
     }.bind(this))
+
+    // collision between shyla and zombie
+    this.physics.add.collider(this.shyla, this.zombieGroup, function (shylaCollide, zombieCollide) {
+      this.sound.play("zombieEat")
+      this.physics.pause()
+      zombieCollide.destroy()
+      shylaCollide.destroy()
+      this.life = this.life - 1
+      this.lifeText.setText("Lives: " + this.life.toString())
+      if (this.life === 0) {
+        this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game over!\nClick to play again.", this.gameOverTextStyle).setOrigin(0.5)
+        this.gameOverText.setInteractive({ useHandCursor: true})
+        this.gameOverText.on("pointerdown", () => this.scene.start("gameScene"))
+      }
+    }.bind(this))
   }
 
   /** 
@@ -114,6 +140,10 @@ class GameScene extends Phaser.Scene {
     const keyLeftObj = this.input.keyboard.addKey("LEFT")
     // adding in right key from keyboard
     const keyRightObj = this.input.keyboard.addKey("RIGHT")
+    // adding in up key from keyboard
+    const keyUpObj = this.input.keyboard.addKey("UP")
+    // adding in down key from keyboard
+    const keyDownObj = this.input.keyboard.addKey("DOWN")
     // adding in space key from keyboard
     const keySpaceObj = this.input.keyboard.addKey("SPACE")
     // when left key is pressed, the player as shyla moves to the left
@@ -128,6 +158,20 @@ class GameScene extends Phaser.Scene {
       this.shyla.x += 15
       if (this.shyla.x > 1920) {
         this.shyla.x = 1920
+      }
+    }
+    // when up key is pressed, the player as shyla moves up
+    if (keyUpObj.isDown === true) {
+      this.shyla.y -= 15
+      if (this.shyla.y < 0) {
+        this.shyla.y = 0
+      }
+    }
+    // when down key is pressed, the player as shyla moves down
+    if (keyDownObj.isDown === true) {
+      this.shyla.y += 15
+      if (this.shyla.y > 1080) {
+        this.shyla.y = 1080
       }
     }
     // if space key is pressed, bullet appears
