@@ -22,8 +22,8 @@ class GameScene extends Phaser.Scene {
     // x velocity set to random from 1 to 50
     let zombieXVelocity = Math.floor(Math.random() * 50) + 1
     // this will add minus sign in 50% of cases
-    zombieXVelocity *= Math.round(Math.random()) ? 1 : -1
-    const aZombie = this.physics.add.sprite(zombieXLocation, -100, "zombie")
+    zombieXVelocity *= Math.round(Math.random()) ? 1: -1
+    const aZombie = this.physics.add.sprite(zombieXLocation, -100, "zombie").setScale(0.5)
     aZombie.body.velocity.y = 200
     aZombie.body.velocity.x = zombieXVelocity
     this.zombieGroup.add(aZombie)
@@ -37,6 +37,11 @@ class GameScene extends Phaser.Scene {
     this.shyla = null
     // constructing bullet for later uses in space key
     this.fireBullet = false
+    // constructing score as 0
+    this.score = 0
+    // constructing score text and its style
+    this.scoreText = null
+    this.scoreTextStyle = { font: "65px Arial", fill: "#ffffff", align: "center" }
     
   }
 
@@ -67,6 +72,7 @@ class GameScene extends Phaser.Scene {
     // AUDIO
     // load in gun sound
     this.load.audio("gunshot", "./assets/gunshot.mp3")
+    this.load.audio("zombieHurt", "./assets/zombieHurt.mp3")
 
     
   }
@@ -78,13 +84,26 @@ class GameScene extends Phaser.Scene {
     // creating background, placing it using coordinates and scale
     this.background = this.add.image(0, 0, "gameBackground").setScale(2.0)
     this.background.setOrigin(0, 0)
+    // creating text for the score
+    this.scoreText = this.add.text(10, 10, "Score: " + this.score.toString(), this.scoreTextStyle)
     // creating shyla, turning into a sprite
     this.shyla = this.physics.add.sprite(1920 / 2, 1080 - 100, "shyla").setScale(5.0)
     // creating bullet group for space key function
     this.bulletGroup = this.physics.add.group()
     // creating a group for zombies
-    this.zombieGroup = this.physics.add.group()
+    this.zombieGroup = this.add.group()
     this.createZombie()
+
+    // collision between bullets and zombies
+    this.physics.add.collider(this.bulletGroup, this.zombieGroup, function (bulletCollide, zombieCollide) {
+      zombieCollide.destroy()
+      bulletCollide.destroy()
+      this.sound.play("zombieHurt")
+      this.score += 1
+      this.scoreText.setText("Score: " + this.score.toString())
+      this.createZombie()
+      this.createZombie()
+    }.bind(this))
   }
 
   /** 
