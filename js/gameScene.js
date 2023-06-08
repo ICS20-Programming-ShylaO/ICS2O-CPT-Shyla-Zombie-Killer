@@ -120,8 +120,6 @@ class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.shyla, this.zombieGroup, function (shylaCollide, zombieCollide) {
       this.sound.play("zombieEat")
       this.physics.pause()
-      zombieCollide.destroy()
-      shylaCollide.destroy()
       this.life = this.life - 1
       this.lifeText.setText("Lives: " + this.life.toString())
       if (this.life === 0) {
