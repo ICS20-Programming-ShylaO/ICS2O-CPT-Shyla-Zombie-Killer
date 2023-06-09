@@ -119,13 +119,14 @@ class GameScene extends Phaser.Scene {
     // collision between shyla and zombie
     this.physics.add.collider(this.shyla, this.zombieGroup, function (shylaCollide, zombieCollide) {
       this.sound.play("zombieEat")
-      this.physics.pause()
+      zombieCollide.destroy()
       this.life = this.life - 1
       this.lifeText.setText("Lives: " + this.life.toString())
       if (this.life === 0) {
-        this.gameOverText = this.add.text(1920 / 2, 1080 / 2, "Game over!\nClick to play again.", this.gameOverTextStyle).setOrigin(0.5)
-        this.gameOverText.setInteractive({ useHandCursor: true})
-        this.gameOverText.on("pointerdown", () => this.scene.start("gameScene"))
+        this.physics.pause()
+        this.score = 0
+        this.life = 3
+        this.scene.start("youLoseScene")
       }
     }.bind(this))
   }
