@@ -110,7 +110,7 @@ class GameScene extends Phaser.Scene {
       zombieCollide.destroy()
       bulletCollide.destroy()
       this.sound.play("zombieHurt")
-      this.score += 1
+      this.score += 10
       this.scoreText.setText("Score: " + this.score.toString())
       this.createZombie()
       this.createZombie()
@@ -152,6 +152,9 @@ class GameScene extends Phaser.Scene {
         this.shyla.x = 0
       }
     }
+    if (this.shyla.y > 1080) {
+        this.shyla.y = 1080
+      }
     // when right key is pressed, the player as shyla moves to the right
     if (keyRightObj.isDown === true) {
       this.shyla.x += 15
@@ -169,9 +172,6 @@ class GameScene extends Phaser.Scene {
     // when down key is pressed, the player as shyla moves down
     if (keyDownObj.isDown === true) {
       this.shyla.y += 15
-      if (this.shyla.y > 1080) {
-        this.shyla.y = 1080
-      }
     }
     // if space key is pressed, bullet appears
     if (keySpaceObj.isDown === true) {
