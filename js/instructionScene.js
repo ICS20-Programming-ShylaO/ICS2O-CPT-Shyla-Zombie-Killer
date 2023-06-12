@@ -33,6 +33,7 @@ class InstructionScene extends Phaser.Scene {
     this.explanationSceneText4 = null
     this.explanationSceneText5 = null
     this.explanationSceneText6 = null
+    this.explanationSceneText7 = null
     this.explanationSceneTextStyle = { font: "50px palatino, Sans-Serif", fill: "#fde4b9", align: "center" }
   }
 
@@ -52,6 +53,8 @@ class InstructionScene extends Phaser.Scene {
     // to load images
     this.load.image("instructionSceneBackgroundImage", "./assets/menuSceneImage.png")
     this.load.image("backButton", "./assets/back.png")
+    // to load background music
+    this.load.audio("instructionMusic", "./assets/menuMusic.mp3")
   }
 
   /** 
@@ -76,8 +79,10 @@ class InstructionScene extends Phaser.Scene {
     this.explanationSceneText4 = this.add.text(1920 / 2, (1080 / 2) - 200, "hit by a zombie, and get a game over screen when you lose all three lives,", this.explanationSceneTextStyle).setOrigin(0.5)
     // line 5
     this.explanationSceneText5 = this.add.text(1920 / 2, (1080 / 2) - 150, "which you can try again.", this.explanationSceneTextStyle).setOrigin(0.5)
-    // line 6, instructions for buttons and their controls
-    this.explanationSceneText6 = this.add.text(1920 / 2, (1080 / 2) + 200, "Use the arrow keys to move around and the space key to shoot.", this.explanationSceneTextStyle).setOrigin(0.5)
+    // line 6
+    this.explanationSceneText6 = this.add.text(1920 / 2, (1080 / 2) - 50, "Kill 30 zombies to win!!", this.explanationSceneTextStyle).setOrigin(0.5)
+    // line 7, instructions for buttons and their controls
+    this.explanationSceneText7 = this.add.text(1920 / 2, (1080 / 2) + 200, "Use the arrow keys to move around and the space key to shoot.", this.explanationSceneTextStyle).setOrigin(0.5)
     // placing back button into scene with coordinates
     this.backButton = this.add.sprite(1920 / 2, (1080 / 2) + 75, "backButton")
     // making back button interactive using the hand cursor
@@ -85,7 +90,10 @@ class InstructionScene extends Phaser.Scene {
     // creating a function when the button is clicked
     this.backButton.on("pointerdown", () => this.clickBack())
 
-    // pass
+    // creating background music
+    const instructionMusic = this.sound.add("instructionMusic")
+    instructionMusic.loop = true
+    instructionMusic.play()
   }
 
   /** 

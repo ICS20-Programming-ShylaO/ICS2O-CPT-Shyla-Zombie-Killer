@@ -48,6 +48,10 @@ class MenuScene extends Phaser.Scene {
     this.load.image("startButton", "./assets/start.png")
     // loading in instructions button
     this.load.image("instructionButton", "./assets/instruction.png")
+
+    // AUDIO
+    // loading in background music
+    this.load.audio("menuMusic", "./assets/menuMusic.mp3")
   }
 
   /** 
@@ -60,6 +64,10 @@ class MenuScene extends Phaser.Scene {
     this.menuSceneBackgroundImage.y = 1080 / 2
     // creating menu text and placing it into the scene to say "Menu"
     this.menuSceneText = this.add.text(1920 / 2, (1080 / 2) + 350, "Menu", this.menuSceneTextStyle).setOrigin(0.5)
+    // creating background music
+    const menuMusic = this.sound.add("menuMusic")
+    menuMusic.loop = true
+    menuMusic.play()
     // for start button
     // creating start button and placing it into the scene using coordinates
     this.startButton = this.add.sprite(1920 / 2, (1080 / 2) + 75, "startButton")

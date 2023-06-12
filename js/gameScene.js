@@ -84,6 +84,8 @@ class GameScene extends Phaser.Scene {
     this.load.audio("zombieHurt", "./assets/zombieHurt.mp3")
     // load in zombie eat sound
     this.load.audio("zombieEat", "./assets/zombieEat.mp3")
+    // load in background music
+    this.load.audio("backgroundMusic", "./assets/backgroundMusic.mp3")
   }
 
   /** 
@@ -105,6 +107,10 @@ class GameScene extends Phaser.Scene {
     this.zombieGroup = this.add.group()
     this.createZombie()
 
+    // creating background music
+    const song = this.sound.add("backgroundMusic")
+    song.loop = true;
+    song.play()
     // collision between bullets and zombies
     this.physics.add.collider(this.bulletGroup, this.zombieGroup, function (bulletCollide, zombieCollide) {
       zombieCollide.destroy()
@@ -112,6 +118,12 @@ class GameScene extends Phaser.Scene {
       this.sound.play("zombieHurt")
       this.score += 10
       this.scoreText.setText("Score: " + this.score.toString())
+      if (this.score === 300) {
+        this.physics.pause()
+        this.score = 0
+        this.life = 3
+        this.scene.start("youWinScene")
+      }
       this.createZombie()
       this.createZombie()
     }.bind(this))
@@ -145,6 +157,11 @@ class GameScene extends Phaser.Scene {
     const keyDownObj = this.input.keyboard.addKey("DOWN")
     // adding in space key from keyboard
     const keySpaceObj = this.input.keyboard.addKey("SPACE")
+
+    // if statement to automatically spawn a zombie every 7 seconds
+    if (time % 10 == 0) {
+      this.createZombie()
+    }
     // when left key is pressed, the player as shyla moves to the left
     if (keyLeftObj.isDown === true) {
       this.shyla.x -= 15

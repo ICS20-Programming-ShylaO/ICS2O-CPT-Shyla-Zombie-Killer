@@ -15,6 +15,7 @@ import MenuScene from "./menuScene.js"
 import GameScene from "./gameScene.js"
 import InstructionScene from "./instructionScene.js"
 import YouLoseScene from "./youLoseScene.js"
+import YouWinScene from "./youWinScene.js"
 
 // create the new scenes
 const splashScene = new SplashScene()
@@ -23,6 +24,7 @@ const menuScene = new MenuScene()
 const gameScene = new GameScene()
 const instructionScene = new InstructionScene()
 const youLoseScene = new YouLoseScene()
+const youWinScene = new YouWinScene()
 
 /** 
 * Start Phaser Game
@@ -58,6 +60,7 @@ game.scene.add("menuScene", menuScene)
 game.scene.add("gameScene", gameScene)
 game.scene.add("instructionScene", instructionScene)
 game.scene.add("youLoseScene", youLoseScene)
+game.scene.add("youWinScene", youWinScene)
 
 // the start scene
 game.scene.start("splashScene")
