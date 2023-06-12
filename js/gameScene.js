@@ -120,6 +120,7 @@ class GameScene extends Phaser.Scene {
       this.scoreText.setText("Score: " + this.score.toString())
       if (this.score === 300) {
         this.physics.pause()
+        song.pause()
         this.score = 0
         this.life = 3
         this.scene.start("youWinScene")
@@ -136,6 +137,7 @@ class GameScene extends Phaser.Scene {
       this.lifeText.setText("Lives: " + this.life.toString())
       if (this.life === 0) {
         this.physics.pause()
+        song.pause()
         this.score = 0
         this.life = 3
         this.scene.start("youLoseScene")

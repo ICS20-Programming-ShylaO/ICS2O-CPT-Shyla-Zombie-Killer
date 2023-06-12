@@ -93,11 +93,15 @@ class MenuScene extends Phaser.Scene {
   }
   // if start button is clicked:
   clickStart() {
+    // pauses background music
+    menuMusic.pause()
     // goes to game scene to start the game
     this.scene.start("gameScene")
   }
   // if instruction button is clicked:
   clickInstruct() {
+    // pauses background music
+    menuMusic.pause()
     // go to instructions scene
     this.scene.start("instructionScene")
   }
