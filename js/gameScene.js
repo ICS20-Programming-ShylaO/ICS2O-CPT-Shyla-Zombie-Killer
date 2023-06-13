@@ -121,7 +121,7 @@ class GameScene extends Phaser.Scene {
       this.sound.play("zombieHurt")
       this.score += 10
       this.scoreText.setText("Score: " + this.score.toString())
-      if (this.score === 300) {
+      if (this.score === 500) {
         this.physics.pause()
         this.gameSceneMusic.pause()
         // restarting score and life in case if player wants to play again
@@ -166,7 +166,7 @@ class GameScene extends Phaser.Scene {
     const keySpaceObj = this.input.keyboard.addKey("SPACE")
 
     // if statement to automatically spawn a zombie every 7 seconds
-    if (time % 10 == 0) {
+    if (time % 7 == 0) {
       this.createZombie()
     }
     // when left key is pressed, the player as shyla moves to the left
