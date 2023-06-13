@@ -19,6 +19,8 @@ class YouWinScene extends Phaser.Scene {
     super({key: "youWinScene" })
     // constructing background
     this.youWinSceneBackgroundImage = null
+    // constructing background music
+    this.youWinMusic = null
     // constructing restart button
     this.restartButton = null
     // constructing menu button
@@ -42,9 +44,12 @@ class YouWinScene extends Phaser.Scene {
   preload() {
     console.log("You Win Scene")
     // to load images
-    this.load.image("youWinSceneBackgroundImage", "./assets/menuSceneImage.png")
-    this.load.image("restartButton", "./assets/restartButton.png")
-    this.load.image("menuButton", "./assets/menuButton.png")
+    this.load.image("youWinSceneBackgroundImage", "./images/menuSceneImage.png")
+    this.load.image("restartButton", "./images/restartButton.png")
+    this.load.image("menuButton", "./images/menuButton.png")
+    // AUDIO
+    // background music
+    this.load.audio("youWinMusic", "./audio/youWinMusic.mp3")
   }
 
   /** 
@@ -55,6 +60,10 @@ class YouWinScene extends Phaser.Scene {
     this.youWinSceneBackgroundImage = this.add.sprite(0, 0, "youWinSceneBackgroundImage").setScale(2.75)
     this.youWinSceneBackgroundImage.x = 1920 / 2
     this.youWinSceneBackgroundImage.y = 1080 / 2
+    // creating background music
+    this.youWinMusic = this.sound.add("youWinMusic")
+    this.youWinMusic.loop = true
+    this.youWinMusic.play()
     // placing you win text into scene with coordinates
     this.youWinSceneText = this.add.text(1920 / 2, (1080 / 2) + 400, "YOU WIN!", this.youWinSceneTextStyle).setOrigin(0.5)
 
@@ -83,11 +92,17 @@ class YouWinScene extends Phaser.Scene {
 
   // if the restart button is clicked:
   clickRestart() {
+    // pauses background music
+    this.youWinMusic.pause()
+    this.youWinMusic.loop = false
     // goes back to game scene
     this.scene.start("gameScene")
   }
   // if the restart buton is clicked:
   clickMenu() {
+    // pauses background music
+    this.youWinMusic.pause()
+    this.youWinMusic.loop = false
     // goes to menu
     this.scene.start("menuScene")
   }

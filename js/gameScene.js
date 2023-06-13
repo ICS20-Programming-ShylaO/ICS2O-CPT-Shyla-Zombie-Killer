@@ -33,6 +33,8 @@ class GameScene extends Phaser.Scene {
     super({key: "gameScene" })
     // constructing background
     this.background = null
+    // constructing background music
+    this.gameSceneMusic = null
     // constructing player as shyla
     this.shyla = null
     // constructing bullet for later uses in space key
@@ -69,23 +71,23 @@ class GameScene extends Phaser.Scene {
     console.log("Game Scene")
     // IMAGES
     // load in background image for game
-    this.load.image("gameBackground", "./assets/gameSceneBackground.png")
+    this.load.image("gameBackground", "./images/gameSceneBackground.png")
     // load in player as shyla
-    this.load.image("shyla", "./assets/shylaWithGun.png")
+    this.load.image("shyla", "./images/shylaWithGun.png")
     // load in bullet as the weapon
-    this.load.image("bullet", "./assets/bullet.png")
+    this.load.image("bullet", "./images/bullet.png")
     // load in zombie
-    this.load.image("zombie", "./assets/zombie.png")
+    this.load.image("zombie", "./images/zombie.png")
     
     // AUDIO
     // load in gun sound
-    this.load.audio("gunshot", "./assets/gunshot.mp3")
+    this.load.audio("gunshot", "./audio/gunshot.mp3")
     // load in zombie hurt sound
-    this.load.audio("zombieHurt", "./assets/zombieHurt.mp3")
+    this.load.audio("zombieHurt", "./audio/zombieHurt.mp3")
     // load in zombie eat sound
-    this.load.audio("zombieEat", "./assets/zombieEat.mp3")
+    this.load.audio("zombieEat", "./audio/zombieEat.mp3")
     // load in background music
-    this.load.audio("backgroundMusic", "./assets/backgroundMusic.mp3")
+    this.load.audio("backgroundMusic", "./audio/backgroundMusic.mp3")
   }
 
   /** 
@@ -108,9 +110,10 @@ class GameScene extends Phaser.Scene {
     this.createZombie()
 
     // creating background music
-    const song = this.sound.add("backgroundMusic")
-    song.loop = true;
-    song.play()
+    this.gameSceneMusic = this.sound.add("backgroundMusic")
+    this.gameSceneMusic.loop = true;
+    this.gameSceneMusic.play()
+    
     // collision between bullets and zombies
     this.physics.add.collider(this.bulletGroup, this.zombieGroup, function (bulletCollide, zombieCollide) {
       zombieCollide.destroy()
@@ -120,7 +123,8 @@ class GameScene extends Phaser.Scene {
       this.scoreText.setText("Score: " + this.score.toString())
       if (this.score === 300) {
         this.physics.pause()
-        song.pause()
+        this.gameSceneMusic.pause()
+        // restarting score and life in case if player wants to play again
         this.score = 0
         this.life = 3
         this.scene.start("youWinScene")
@@ -137,7 +141,8 @@ class GameScene extends Phaser.Scene {
       this.lifeText.setText("Lives: " + this.life.toString())
       if (this.life === 0) {
         this.physics.pause()
-        song.pause()
+        this.gameSceneMusic.pause()
+        // restarting score and life in case if player wants to play again
         this.score = 0
         this.life = 3
         this.scene.start("youLoseScene")

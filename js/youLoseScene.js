@@ -19,6 +19,8 @@ class YouLoseScene extends Phaser.Scene {
     super({key: "youLoseScene" })
     // constructing background
     this.youLoseSceneBackgroundImage = null
+    // constructing background music
+    this.youLoseMusic = null
     // constructing restart button
     this.restartButton = null
     // constructing menu button
@@ -42,9 +44,12 @@ class YouLoseScene extends Phaser.Scene {
   preload() {
     console.log("You Lose Scene")
     // to load images
-    this.load.image("youLoseSceneBackgroundImage", "./assets/menuSceneImage.png")
-    this.load.image("restartButton", "./assets/restartButton.png")
-    this.load.image("menuButton", "./assets/menuButton.png")
+    this.load.image("youLoseSceneBackgroundImage", "./images/menuSceneImage.png")
+    this.load.image("restartButton", "./images/restartButton.png")
+    this.load.image("menuButton", "./images/menuButton.png")
+    // AUDIO
+    // background music
+    this.load.audio("youLoseMusic", "./audio/youLoseMusic.mp3")
   }
 
   /** 
@@ -55,6 +60,10 @@ class YouLoseScene extends Phaser.Scene {
     this.youLoseSceneBackgroundImage = this.add.sprite(0, 0, "youLoseSceneBackgroundImage").setScale(2.75)
     this.youLoseSceneBackgroundImage.x = 1920 / 2
     this.youLoseSceneBackgroundImage.y = 1080 / 2
+    // creating background music
+    this.youLoseMusic = this.sound.add("youLoseMusic")
+    this.youLoseMusic.loop = true
+    this.youLoseMusic.play()
     // placing you lose text into scene with coordinates
     this.youLoseSceneText = this.add.text(1920 / 2, (1080 / 2) + 400, "YOU LOSE!", this.youLoseSceneTextStyle).setOrigin(0.5)
 
@@ -83,11 +92,17 @@ class YouLoseScene extends Phaser.Scene {
 
   // if the restart button is clicked:
   clickRestart() {
+    // pauses background music
+    this.youLoseMusic.pause()
+    this.youLoseMusic.loop = false
     // goes back to game scene
     this.scene.start("gameScene")
   }
-  // if the restart buton is clicked:
+  // if the restart button is clicked:
   clickMenu() {
+    // pauses background music
+    this.youLoseMusic.pause()
+    this.youLoseMusic.loop = false
     // goes to menu
     this.scene.start("menuScene")
   }

@@ -19,6 +19,8 @@ class InstructionScene extends Phaser.Scene {
     super({key: "instructionScene" })
     // creating background
     this.instructionSceneBackgroundImage = null
+    // creating background music
+    this.instructionMusic = null
     // creating back button
     this.backButton = null
 
@@ -51,10 +53,11 @@ class InstructionScene extends Phaser.Scene {
   preload() {
     console.log("Instruction Scene")
     // to load images
-    this.load.image("instructionSceneBackgroundImage", "./assets/menuSceneImage.png")
-    this.load.image("backButton", "./assets/back.png")
+    this.load.image("instructionSceneBackgroundImage", "./images/menuSceneImage.png")
+    this.load.image("backButton", "./images/back.png")
+    // AUDIO
     // to load background music
-    this.load.audio("instructionMusic", "./assets/menuMusic.mp3")
+    this.load.audio("instructionMusic", "./audio/menuMusic.mp3")
   }
 
   /** 
@@ -65,6 +68,10 @@ class InstructionScene extends Phaser.Scene {
     this.instructionSceneBackgroundImage = this.add.sprite(0, 0, "instructionSceneBackgroundImage").setScale(2.75)
     this.instructionSceneBackgroundImage.x = 1920 / 2
     this.instructionSceneBackgroundImage.y = 1080 / 2
+    // creating background music
+    this.instructionMusic = this.sound.add("instructionMusic")
+    this.instructionMusic.loop = true
+    this.instructionMusic.play()
     // placing instruction text into scene with coordinates
     this.instructionSceneText = this.add.text(1920 / 2, (1080 / 2) + 400, "Instructions", this.instructionSceneTextStyle).setOrigin(0.5)
     // placing explanation texts into scenes with coordinates, one for each line
@@ -80,7 +87,7 @@ class InstructionScene extends Phaser.Scene {
     // line 5
     this.explanationSceneText5 = this.add.text(1920 / 2, (1080 / 2) - 150, "which you can try again.", this.explanationSceneTextStyle).setOrigin(0.5)
     // line 6
-    this.explanationSceneText6 = this.add.text(1920 / 2, (1080 / 2) - 50, "Kill 30 zombies to win!!", this.explanationSceneTextStyle).setOrigin(0.5)
+    this.explanationSceneText6 = this.add.text(1920 / 2, (1080 / 2) - 50, "Kill 50 zombies to win!!", this.explanationSceneTextStyle).setOrigin(0.5)
     // line 7, instructions for buttons and their controls
     this.explanationSceneText7 = this.add.text(1920 / 2, (1080 / 2) + 200, "Use the arrow keys to move around and the space key to shoot.", this.explanationSceneTextStyle).setOrigin(0.5)
     // placing back button into scene with coordinates
@@ -89,11 +96,6 @@ class InstructionScene extends Phaser.Scene {
     this.backButton.setInteractive({ useHandCursor: true })
     // creating a function when the button is clicked
     this.backButton.on("pointerdown", () => this.clickBack())
-
-    // creating background music
-    const instructionMusic = this.sound.add("instructionMusic")
-    instructionMusic.loop = true
-    instructionMusic.play()
   }
 
   /** 
@@ -104,6 +106,9 @@ class InstructionScene extends Phaser.Scene {
   }
   // if the back button is clicked:
   clickBack() {
+    // pauses background music
+    this.instructionMusic.pause()
+    this.instructionMusic.loop = false
     // goes back to the menu
     this.scene.start("menuScene")
   }
