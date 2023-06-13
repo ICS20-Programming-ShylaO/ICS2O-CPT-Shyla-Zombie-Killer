@@ -64,8 +64,16 @@ class YouLoseScene extends Phaser.Scene {
     this.youLoseMusic = this.sound.add("youLoseMusic")
     this.youLoseMusic.loop = true
     this.youLoseMusic.play()
-    // placing you lose text into scene with coordinates
-    this.youLoseSceneText = this.add.text(1920 / 2, (1080 / 2) + 400, "YOU LOSE!", this.youLoseSceneTextStyle).setOrigin(0.5)
+    // creating you lose text
+    this.youLoseSceneText = this.add.text(1920 / 2, (1080 / 2) - 530, "YOU LOSE!", this.youLoseSceneTextStyle).setOrigin(0.5)
+      
+    let container = this.add.container(400, 100, [this.youLoseSceneText])
+
+    this.physics.world.enableBody(container)
+    
+    container.body.setVelocity(100, 200)
+    container.body.setBounce(1, 1)
+    container.body.setCollideWorldBounds(true)
 
     // placing restart button into scene with coordinates
     this.restartButton = this.add.sprite(1920 / 2, (1080 / 2) + 75, "restartButton")
