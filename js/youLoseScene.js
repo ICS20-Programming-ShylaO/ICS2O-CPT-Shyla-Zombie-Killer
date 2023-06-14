@@ -65,14 +65,17 @@ class YouLoseScene extends Phaser.Scene {
     this.youLoseMusic.loop = true
     this.youLoseMusic.play()
     // creating you lose text
-    this.youLoseSceneText = this.add.text(1920 / 2, (1080 / 2) - 530, "YOU LOSE!", this.youLoseSceneTextStyle).setOrigin(0.5)
-      
+    this.youLoseSceneText = this.add.text((1920 / 2) - 960, (1080 / 2) - 530, "YOU LOSE!", this.youLoseSceneTextStyle).setOrigin(0.5)
+    // animation found from: https://phaser.discourse.group/t/animate-text/4384 - badbrains
+    // creating a container for the animation
     let container = this.add.container(400, 100, [this.youLoseSceneText])
-
+    // to enable the body, making it able to move I think
     this.physics.world.enableBody(container)
-    
-    container.body.setVelocity(100, 200)
+    // setting container velocity to 100, 100
+    container.body.setVelocity(100, 100)
+    // setting bounce to 1, 1 (to retain 100% of its kinetic energy after bounce)
     container.body.setBounce(1, 1)
+    // to set colliding world bounds so it doesn't leave the screen (for the bouncing)
     container.body.setCollideWorldBounds(true)
 
     // placing restart button into scene with coordinates

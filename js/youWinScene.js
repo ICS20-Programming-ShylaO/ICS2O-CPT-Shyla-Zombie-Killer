@@ -64,8 +64,6 @@ class YouWinScene extends Phaser.Scene {
     this.youWinMusic = this.sound.add("youWinMusic")
     this.youWinMusic.loop = true
     this.youWinMusic.play()
-    // placing you win text into scene with coordinates
-    this.youWinSceneText = this.add.text(1920 / 2, (1080 / 2) + 400, "YOU WIN!", this.youWinSceneTextStyle).setOrigin(0.5)
 
     // placing restart button into scene with coordinates
     this.restartButton = this.add.sprite(1920 / 2, (1080 / 2) + 75, "restartButton")
@@ -81,13 +79,17 @@ class YouWinScene extends Phaser.Scene {
     // calling a new function when the button is clicked
     this.menuButton.on("pointerdown", () => this.clickMenu())
     
+    // placing you win text into scene with coordinates
+    this.youWinSceneText = this.add.text((1920 / 2), (1080 / 2) - 350, "YOU WIN!", this.youWinSceneTextStyle).setOrigin(0.5)
+
   }
 
   /** 
   * Once per game step while the scene is running using given variables, time and delta.
   */
   update(time, delta) {
-    // pass
+    // to increment the angle by 1 (rotate the text)
+    this.youWinSceneText.angle += 1;
   }
 
   // if the restart button is clicked:
@@ -98,7 +100,7 @@ class YouWinScene extends Phaser.Scene {
     // goes back to game scene
     this.scene.start("gameScene")
   }
-  // if the restart buton is clicked:
+  // if the restart button is clicked:
   clickMenu() {
     // pauses background music
     this.youWinMusic.pause()

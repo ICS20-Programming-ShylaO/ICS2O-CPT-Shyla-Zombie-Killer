@@ -23,9 +23,13 @@ class GameScene extends Phaser.Scene {
     let zombieXVelocity = Math.floor(Math.random() * 50) + 1
     // this will add minus sign in 50% of cases
     zombieXVelocity *= Math.round(Math.random()) ? 1: -1
+    // actually creating a zombie as a sprite, giving a random x coordinate
     const aZombie = this.physics.add.sprite(zombieXLocation, -100, "zombie").setScale(0.5)
+    // setting vertical velocity to 200
     aZombie.body.velocity.y = 200
+    // setting horizontal velocity to a random velocity
     aZombie.body.velocity.x = zombieXVelocity
+    // adding the individual zombie to the zombie group
     this.zombieGroup.add(aZombie)
   }
   
@@ -116,35 +120,52 @@ class GameScene extends Phaser.Scene {
     
     // collision between bullets and zombies
     this.physics.add.collider(this.bulletGroup, this.zombieGroup, function (bulletCollide, zombieCollide) {
+      // destroying the zombie and bullet that collided
       zombieCollide.destroy()
       bulletCollide.destroy()
+      // playing the zombie hurt sound
       this.sound.play("zombieHurt")
+      // incrementing score by 10
       this.score += 10
+      // adding it to the string
       this.scoreText.setText("Score: " + this.score.toString())
+      // condition when player wins the game (when they kill 50 zombies)
       if (this.score === 500) {
+        // everything pauses
         this.physics.pause()
+        // music pauses (to avoid overlap)
         this.gameSceneMusic.pause()
         // restarting score and life in case if player wants to play again
         this.score = 0
         this.life = 3
+        // goes to win scene
         this.scene.start("youWinScene")
       }
+      // creating two zombies for every zombie killed
       this.createZombie()
       this.createZombie()
     }.bind(this))
 
     // collision between shyla and zombie
     this.physics.add.collider(this.shyla, this.zombieGroup, function (shylaCollide, zombieCollide) {
+      // playing the zombie eat sound
       this.sound.play("zombieEat")
+      // zombie that collided with player gets destroyed
       zombieCollide.destroy()
-      this.life = this.life - 1
+      // decrement life by 1
+      this.life --
+      // add new value of life to the text
       this.lifeText.setText("Lives: " + this.life.toString())
+      // condition when player loses (when they lose all 3 lives)
       if (this.life === 0) {
+        // everything pauses
         this.physics.pause()
+        // music pauses to avoid overlap
         this.gameSceneMusic.pause()
         // restarting score and life in case if player wants to play again
         this.score = 0
         this.life = 3
+        // goes to lose scene
         this.scene.start("youLoseScene")
       }
     }.bind(this))
@@ -176,6 +197,7 @@ class GameScene extends Phaser.Scene {
         this.shyla.x = 0
       }
     }
+    // condition to prevent the player from falling through the screen
     if (this.shyla.y > 1080) {
         this.shyla.y = 1080
       }
