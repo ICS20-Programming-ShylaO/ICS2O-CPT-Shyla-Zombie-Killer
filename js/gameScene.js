@@ -225,10 +225,11 @@ class GameScene extends Phaser.Scene {
       if (this.fireBullet === false) {
         // fire bullet
         this.fireBullet = true
+        // creating the bullet fired when space key has been pressed, giving its spawn coordinates wherever the player is
         const aNewBullet = this.physics.add.sprite(this.shyla.x, this.shyla.y, "bullet").setScale(0.35)
+        // adding the bullet fired to the bullet group
         this.bulletGroup.add(aNewBullet)
-
-
+        // playing the gunshot sound
         this.sound.play("gunshot")
       }
     }
@@ -236,9 +237,10 @@ class GameScene extends Phaser.Scene {
     if (keySpaceObj.isUp === true) {
       this.fireBullet = false
     }
-
+    // giving direction to the bullets (up)
     this.bulletGroup.children.each (function (item) {
-      item.y = item.y -15
+      item.y -= 15
+      // condition to destroy any bullet out of the screen (y-coordinate is negative)
       if (item.y < 0) {
         item.destroy()
       }
