@@ -36,7 +36,7 @@ class InstructionScene extends Phaser.Scene {
     this.explanationSceneText5 = null
     this.explanationSceneText6 = null
     this.explanationSceneText7 = null
-    this.explanationSceneTextStyle = { font: "50px palatino, Sans-Serif", fill: "#fde4b9", align: "center" }
+    this.explanationSceneTextStyle = { font: "50px palatino, Sans-Serif", fill: "#fde4b9", backgroundColor: "#000000", align: "center" }
   }
 
   /** 
@@ -75,23 +75,22 @@ class InstructionScene extends Phaser.Scene {
     // placing instruction text into scene with coordinates
     this.instructionSceneText = this.add.text(1920 / 2, (1080 / 2) + 400, "Instructions", this.instructionSceneTextStyle).setOrigin(0.5)
     // placing explanation texts into scenes with coordinates, one for each line
-
     // line 1
     this.explanationSceneText1 = this.add.text(1920 / 2, (1080 / 2) - 350, "You play as Shyla Oommen, the best marksman of the west, who is surviving", this.explanationSceneTextStyle).setOrigin(0.5)
     // line 2
-    this.explanationSceneText2 = this.add.text(1920 / 2, (1080 / 2) - 300, "through the great zombie apocalypse. You gain 10 points for each time", this.explanationSceneTextStyle).setOrigin(0.5)
+    this.explanationSceneText2 = this.add.text(1920 / 2, (1080 / 2) - 275, "through the great zombie apocalypse. You gain 10 points for each time", this.explanationSceneTextStyle).setOrigin(0.5)
     // line 3
-    this.explanationSceneText3 = this.add.text(1920 / 2, (1080 / 2) - 250, "you successfully shoot a zombie, lose one of your three total lives when", this.explanationSceneTextStyle).setOrigin(0.5)
+    this.explanationSceneText3 = this.add.text(1920 / 2, (1080 / 2) - 200, "you successfully shoot a zombie, lose one of your three total lives when", this.explanationSceneTextStyle).setOrigin(0.5)
     // line 4
-    this.explanationSceneText4 = this.add.text(1920 / 2, (1080 / 2) - 200, "hit by a zombie, and get a game over screen when you lose all three lives,", this.explanationSceneTextStyle).setOrigin(0.5)
+    this.explanationSceneText4 = this.add.text(1920 / 2, (1080 / 2) - 125, "hit by a zombie, and get a game over screen when you lose all three lives,", this.explanationSceneTextStyle).setOrigin(0.5)
     // line 5
-    this.explanationSceneText5 = this.add.text(1920 / 2, (1080 / 2) - 150, "which you can try again.", this.explanationSceneTextStyle).setOrigin(0.5)
+    this.explanationSceneText5 = this.add.text(1920 / 2, (1080 / 2) - 50, "which you can try again.", this.explanationSceneTextStyle).setOrigin(0.5)
     // line 6
-    this.explanationSceneText6 = this.add.text(1920 / 2, (1080 / 2) - 50, "Kill 30 zombies to win!!", this.explanationSceneTextStyle).setOrigin(0.5)
+    this.explanationSceneText6 = this.add.text(1920 / 2, (1080 / 2) + 25, "Kill 5 zombies to win!!", this.explanationSceneTextStyle).setOrigin(0.5)
     // line 7, instructions for buttons and their controls
     this.explanationSceneText7 = this.add.text(1920 / 2, (1080 / 2) + 200, "Use the arrow keys to move around and the space key to shoot.", this.explanationSceneTextStyle).setOrigin(0.5)
     // placing back button into scene with coordinates
-    this.backButton = this.add.sprite(1920 / 2, (1080 / 2) + 75, "backButton")
+    this.backButton = this.add.sprite(1920 / 2, (1080 / 2) + 100, "backButton")
     // making back button interactive using the hand cursor
     this.backButton.setInteractive({ useHandCursor: true })
     // creating a function when the button is clicked
