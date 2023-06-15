@@ -130,7 +130,7 @@ class GameScene extends Phaser.Scene {
       // adding it to the string
       this.scoreText.setText("Score: " + this.score.toString())
       // condition when player wins the game (when they kill 50 zombies)
-      if (this.score === 500) {
+      if (this.score === 300) {
         // everything pauses
         this.physics.pause()
         // music pauses (to avoid overlap)

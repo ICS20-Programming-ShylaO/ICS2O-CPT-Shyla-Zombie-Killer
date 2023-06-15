@@ -87,7 +87,7 @@ class InstructionScene extends Phaser.Scene {
     // line 5
     this.explanationSceneText5 = this.add.text(1920 / 2, (1080 / 2) - 150, "which you can try again.", this.explanationSceneTextStyle).setOrigin(0.5)
     // line 6
-    this.explanationSceneText6 = this.add.text(1920 / 2, (1080 / 2) - 50, "Kill 50 zombies to win!!", this.explanationSceneTextStyle).setOrigin(0.5)
+    this.explanationSceneText6 = this.add.text(1920 / 2, (1080 / 2) - 50, "Kill 30 zombies to win!!", this.explanationSceneTextStyle).setOrigin(0.5)
     // line 7, instructions for buttons and their controls
     this.explanationSceneText7 = this.add.text(1920 / 2, (1080 / 2) + 200, "Use the arrow keys to move around and the space key to shoot.", this.explanationSceneTextStyle).setOrigin(0.5)
     // placing back button into scene with coordinates
